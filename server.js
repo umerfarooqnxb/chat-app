@@ -3,7 +3,7 @@ const app = express()
 require('dotenv').config()
 
 app.get('/', (req, res) => {
-    res.sendFile()
+    res.sendFile(__dirname + `/public/index.html`)
 })
 
 
