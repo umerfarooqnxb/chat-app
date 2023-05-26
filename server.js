@@ -2,6 +2,9 @@ const express = require('express');
 const http = require('http')
 const socketio = require('socket.io')
 const app = express()
+app.use(express.static(__dirname));
+
+
 require('dotenv').config()
 
 const server = http.createServer(app)
@@ -11,9 +14,11 @@ const io = socketio(server)
 app.get('/', (req, res) => {
     res.sendFile(__dirname + `/public/index.html`)
 })
-
-io.on('connection',()=>{
-    console.log("Web socket connection")
+let count = 0;
+io.on('connection', (socket) => {
+    // socket parameter contains the information of new connected user
+    // Here we can use the method on socket to communicate with specific clients
+    socket.emit('countUpdated')
 })
 
 
