@@ -19,7 +19,15 @@ let count = 0;
 io.on('connection', (socket) => {
     // socket parameter contains the information of new connected user
     // Here we can use the method on socket to communicate with specific clients
-    socket.emit('countUpdated')
+    socket.emit('countUpdated', count)
+    socket.on('incremented', () => {
+        count++
+        // I didn't want to emit an event to a particular connection  
+        // socket.emit('countUpdated',count)
+
+        // To emit an event to every single connected user
+        io.emit('countUpdated',count)
+    })
 })
 
 
